@@ -20,7 +20,6 @@ end
 # Twilio SMS endpoint
 post '/txt' do
   # https://www.twilio.com/docs/api/twiml
-  p params
   response = Twilio::TwiML::Response.new do |r|
     r.Sms act_on_text(params["From"], params["Body"])
   end
@@ -33,7 +32,7 @@ end
 get '/voice' do
   # http://twilio-ruby.readthedocs.org/en/latest/usage/twiml.html
   response = Twilio::TwiML::Response.new do |r|
-    r.play "http://#{request.env["HTTP_HOST"]}/mp3/hey.mp3"
+    r.Play "http://#{request.env["HTTP_HOST"]}/mp3/hey.mp3"
   end
 
   content_type :xml
