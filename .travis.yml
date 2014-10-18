@@ -8,8 +8,11 @@ language: ruby
 rvm:
 - 2.1.3
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 env:
 - DATABASE_URL=postgresql://postgres@localhost/travis_ci_test
+notifications:
+  slack:
+    secure: WzqPoeFIXVDfcsIVdEuqMVzn1QlXIpzRkQAW5TWQoDTK42udNRPjfW2I1uIY4gk7NFXL9qN7pT10iJFnA5gWUFu4PQhSx/OETn6oJ1MEHil4G6CLTJ47ODSqmWBuJes9crS4/yyAvqXgmvKjg7dQEH2Oq4mrBOEA1lAxceR1+1c=
