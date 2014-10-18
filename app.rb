@@ -20,8 +20,9 @@ end
 # Twilio SMS endpoint
 post '/txt' do
   # https://www.twilio.com/docs/api/twiml
+  p params
   response = Twilio::TwiML::Response.new do |r|
-    r.Sms "Not implemented yet bro."
+    r.Sms act_on_text(params["From"], params["Body"])
   end
 
   content_type :xml
@@ -39,6 +40,45 @@ get '/voice' do
   response.text
 end
 
+##
+# This contains most of the business logic and should always return the string
+# we should send back to the user.
+def act_on_text number, content
+  # Get that user
+  user = User.get number
+
+  # Walk through signup flow if we need to.
+  if user.objective.nil?
+    return "Set an objective"
+  elsif user.key.nil?
+    return "Units for result?"
+  elsif user.result.nil?
+    return "How many?"
+  end
+
+  return "All set up."
+end
+
+##
+# Takes in a phone number and converts it to E164, the international phone
+# number format.
+def convert_to_e164 raw_phone
+  return Phony.format(
+    raw_phone,
+    :format => :international,
+    :spaces => ''
+  ).gsub(/\s+/, "") # Phony won't remove all spaces
+end
+
 # Models
 class User < ActiveRecord::Base
+  ##
+  # Given a phone number, either finds or creates the user, makes sure it's
+  # saved to db and returns the user.
+  def self.get phone_number
+    u = User.find_or_create_by(telephone: convert_to_e164(phone_number))
+    u.save
+
+    return u
+  end
 end
