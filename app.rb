@@ -22,7 +22,7 @@ end
 get '/voice' do
   # http://twilio-ruby.readthedocs.org/en/latest/usage/twiml.html
   response = Twilio::TwiML::Response.new do |r|
-    r.play "/mp3/hey.m4a"
+    r.play "http://#{request.env["HTTP_HOST"]}/mp3/hey.m4a"
   end
 
   response.text
