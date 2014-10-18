@@ -42,6 +42,8 @@ get '/voice' do
   response.text
 end
 
+# Business logic and helper methods
+
 ##
 # This contains most of the business logic and should always return the string
 # we should send back to the user.
@@ -91,6 +93,14 @@ def convert_to_e164 raw_phone
 end
 
 # Models
+
+##
+# Holds User data. If a user has an account they have a row here.
+#
+# TODO(icco): Abstract out OKR data, right now they can only ever have one OKR.
+# Suggested schema might be just phone_number in this table, and then another
+# table holding all objectives. Each objective would need a deadline, which we
+# currently don't have either.
 class User < ActiveRecord::Base
 
   ##
