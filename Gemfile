@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 ruby '2.1.3'
 
 # Project requirements
-gem 'activerecord'
+gem 'activerecord', :require => 'active_record'
 gem 'erubis', '~> 2.7.0'
 gem 'oj'
 gem 'pg'
 gem 'rake'
 gem 'sass'
 gem 'sinatra'
-gem 'sinatra-activerecord'
+gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'thin'
 gem 'twilio-ruby'
 
