@@ -20,11 +20,14 @@ get '/' do
   erb :index
 end
 
-# Twilio SMS endpoint
+# Twilio SMS endpoint. This does three things:
+#  - Walks the user through the signup flow
+#  - Reacts to commands
+#  - Logs progress on OKR
 post '/txt' do
-  # TODO(icco): Add logging for incoming messages
-  # TODO(icco): Add logging for outgoing messages
-  #
+  # Log incomming Text message for history.
+  Message.recieve params["From"], params["Body"]
+
   # https://www.twilio.com/docs/api/twiml
   response = Twilio::TwiML::Response.new do |r|
     r.Message act_on_text(params["From"], params["Body"])
