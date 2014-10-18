@@ -66,10 +66,10 @@ def welcome_flow number, content
   if user.objective.nil?
     user.update(objective: "")
     return "Set an objective!"
-  elsif user.objective == "" and user.key.nil?
+  elsif user.objective == "" && user.key.nil?
     user.update(objective: content)
     return "Units for result?"
-  elsif user.objective != "" and user.key.nil?
+  elsif user.objective != "" && user.key.nil?
     user.update(key: content)
     return "How many?"
   elsif user.result.nil?
@@ -97,10 +97,10 @@ class User < ActiveRecord::Base
   # Returns true if a user is properly configured.
   def setup?
     a = !user.telephone.empty?
-    b = !user.objective.nil? and !user.objective.empty?
-    c = !user.result.nil? and !user.result.empty?
-    d = !user.key.nil? and user.key > 0
-    return a and b and c and d
+    b = !user.objective.nil? && !user.objective.empty?
+    c = !user.result.nil? && !user.result.empty?
+    d = !user.key.nil? && user.key > 0
+    return a && b && c && d
   end
 
   ##
