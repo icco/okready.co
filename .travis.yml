@@ -1,0 +1,7 @@
+deploy:
+  provider: heroku
+  app: ancient-ravine-4945
+  run: "rake db:migrate"
+language: ruby
+rvm:
+  - 2.1.3
