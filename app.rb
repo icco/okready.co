@@ -48,23 +48,34 @@ end
 def act_on_text number, content
   # Get that user
   user = User.get number
+  if content.eql? "RESET"
+    user.destroy
+    return "Bro. I just forgot about you."
+  end
 
-  # Walk through signup flow if we need to.
-  if user.objective.nil?
-    user.update(objective: "")
-    return "Set an objective"
-  elsif user.key.nil?
-    user.update(objective: content)
-    return "Units for result?"
-  elsif user.result.nil?
-    user.update(key: content, result: 0)
-    return "How many?"
-  elsif user.result.eql? 0
-    user.update(result: content)
-    return "Cool! You're all set up. Your goal is \"#{user.objective}\". You need #{user.result} #{user.key} in 30 days to succeed."
+  if !user.setup?
+    return welcome_flow number, content
   end
 
   return "All set up."
+end
+
+##
+# Walk through signup flow if we need to.
+def welcome_flow number, content
+  if user.objective.nil?
+    user.update(objective: "")
+    return "Set an objective!"
+  elsif user.objective == "" and user.key.nil?
+    user.update(objective: content)
+    return "Units for result?"
+  elsif user.objective != "" and user.key.nil?
+    user.update(key: content)
+    return "How many?"
+  elsif user.result.nil?
+    user.update(result: content.to_i)
+    return "Cool! You're all set up. Your goal is \"#{user.objective}\". You need #{user.result} #{user.key} in 30 days to succeed."
+  end
 end
 
 ##
@@ -81,6 +92,17 @@ end
 
 # Models
 class User < ActiveRecord::Base
+
+  ##
+  # Returns true if a user is properly configured.
+  def setup?
+    a = !user.telephone.empty?
+    b = !user.objective.nil? and !user.objective.empty?
+    c = !user.result.nil? and !user.result.empty?
+    d = !user.key.nil? and user.key > 0
+    return a and b and c and d
+  end
+
   ##
   # Given a phone number, either finds or creates the user, makes sure it's
   # saved to db and returns the user.
