@@ -96,10 +96,10 @@ class User < ActiveRecord::Base
   ##
   # Returns true if a user is properly configured.
   def setup?
-    a = !user.telephone.empty?
-    b = !user.objective.nil? && !user.objective.empty?
-    c = !user.result.nil? && !user.result.empty?
-    d = !user.key.nil? && user.key > 0
+    a = !self.telephone.empty?
+    b = !self.objective.nil? && !self.objective.empty?
+    c = !self.result.nil? && !self.result.empty?
+    d = !self.key.nil? && self.key > 0
     return a && b && c && d
   end
 
