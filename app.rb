@@ -38,3 +38,7 @@ get '/voice' do
   content_type :xml
   response.text
 end
+
+# Models
+class User < ActiveRecord::Base
+end
