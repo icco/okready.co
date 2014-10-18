@@ -123,3 +123,19 @@ class User < ActiveRecord::Base
     return u
   end
 end
+
+##
+# Holds a record of a message.
+class Message < ActiveRecord::Base
+
+  ##
+  # A log of messages we have sent. Calling this creates an object, makes the
+  # Twilio API call and then writes to the Database as a log on success.
+  def self.send to, message
+  end
+
+  ##
+  # Written to when we get a message from Twilio.
+  def self.recieve from, message
+  end
+end
