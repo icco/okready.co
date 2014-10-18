@@ -16,3 +16,4 @@ env:
 notifications:
   slack:
     secure: WzqPoeFIXVDfcsIVdEuqMVzn1QlXIpzRkQAW5TWQoDTK42udNRPjfW2I1uIY4gk7NFXL9qN7pT10iJFnA5gWUFu4PQhSx/OETn6oJ1MEHil4G6CLTJ47ODSqmWBuJes9crS4/yyAvqXgmvKjg7dQEH2Oq4mrBOEA1lAxceR1+1c=
+bundler_args: --without development
