@@ -18,4 +18,5 @@ gem 'twilio-ruby'
 # For dev
 group :development do
   gem 'shotgun'
+  gem 'travis'
 end
