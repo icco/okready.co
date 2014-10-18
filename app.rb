@@ -98,8 +98,8 @@ class User < ActiveRecord::Base
   def setup?
     a = !self.telephone.empty?
     b = !self.objective.nil? && !self.objective.empty?
-    c = !self.result.nil? && !self.result.empty?
-    d = !self.key.nil? && self.key > 0
+    c = !self.key.nil? && !self.key.empty?
+    d = !self.result.nil? && self.result > 0
     return a && b && c && d
   end
 
