@@ -19,9 +19,12 @@ end
 
 # Twilio SMS endpoint
 post '/txt' do
+  # TODO(icco): Add logging for incoming messages
+  # TODO(icco): Add logging for outgoing messages
+  #
   # https://www.twilio.com/docs/api/twiml
   response = Twilio::TwiML::Response.new do |r|
-    r.Sms act_on_text(params["From"], params["Body"])
+    r.Message act_on_text(params["From"], params["Body"])
   end
 
   content_type :xml
@@ -48,11 +51,17 @@ def act_on_text number, content
 
   # Walk through signup flow if we need to.
   if user.objective.nil?
+    user.update(objective: "")
     return "Set an objective"
   elsif user.key.nil?
+    user.update(objective: content)
     return "Units for result?"
   elsif user.result.nil?
+    user.update(key: content, result: 0)
     return "How many?"
+  elsif user.result.eql? 0
+    user.update(result: content)
+    return "Cool! You're all set up. Your goal is \"#{user.objective}\". You need #{user.result} #{user.key} in 30 days to succeed."
   end
 
   return "All set up."
