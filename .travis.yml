@@ -4,6 +4,7 @@ deploy:
   run: rake db:migrate
   api_key:
     secure: TnHqFGjeMRzo/qMrp0lfb8aNLAJaeyabxWpezOhZxXkhQVx50YQlaES7MTz+xIrrzqo+jPKF0pM7n2wlRgYiDCN0q6L6a2ctrNawkT/JNBsND+mBVdIzmg44fH+Y8KfEHTbMz1n5chza8mAyknMTZ1fWMQefD0X5H9PCdbS0pkg=
+  strategy: api
 language: ruby
 rvm:
 - 2.1.3
