@@ -54,7 +54,7 @@ def act_on_text number, content
   end
 
   if !user.setup?
-    return welcome_flow number, content
+    return welcome_flow user, content
   end
 
   return "All set up."
@@ -62,7 +62,7 @@ end
 
 ##
 # Walk through signup flow if we need to.
-def welcome_flow number, content
+def welcome_flow user, content
   if user.objective.nil?
     user.update(objective: "")
     return "Set an objective!"
