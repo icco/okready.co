@@ -16,6 +16,7 @@ post '/txt' do
     r.Sms "Not implemented yet bro."
   end
 
+  content_type :xml
   response.text
 end
 
@@ -25,5 +26,6 @@ get '/voice' do
     r.play "http://#{request.env["HTTP_HOST"]}/mp3/hey.m4a"
   end
 
+  content_type :xml
   response.text
 end
