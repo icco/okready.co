@@ -10,8 +10,9 @@ gem 'pg'
 gem 'rake'
 gem 'sass'
 gem 'sinatra'
-gem "sinatra-activerecord"
+gem 'sinatra-activerecord'
 gem 'thin'
+gem 'twilio-ruby'
 
 # For dev
 group :development do
