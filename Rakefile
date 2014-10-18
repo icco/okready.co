@@ -1,4 +1,6 @@
 require 'bundler/setup'
+require "./app"
+require "sinatra/activerecord/rake"
 
 desc "Run a local server."
 task :local do

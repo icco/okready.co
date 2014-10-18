@@ -1,5 +1,5 @@
 #!/usr/bin/env rackup
 # encoding: utf-8
 
-require './main'
+require './app'
 run Sinatra::Application
