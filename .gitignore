@@ -1,2 +1,4 @@
 .DS_Store
+.bundle/
 .rake_t_cache
+vendor/
