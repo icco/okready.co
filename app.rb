@@ -78,7 +78,7 @@ def update_okr user, content
     MessageProgressWorker.new.async.later(60)
   end
 end
-#
+
 ##
 # Walk through signup flow if we need to.
 def welcome_flow user, content
