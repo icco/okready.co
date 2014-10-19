@@ -49,56 +49,10 @@ class Message < ActiveRecord::Base
   # Written to when we get a message from Twilio.
   def self.recieve from, message
     p Message
+    p Message.table_name
     m = create(from: from, text: message)
-    p m
     m.save
 
     return m
-  end
-end
-
-##
-# Delayed job worker for sending a message.
-#
-# https://github.com/brandonhilkert/sucker_punch
-class MessageWorker
-  include SuckerPunch::Job
-
-  def perform number
-    ActiveRecord::Base.connection_pool.with_connection do
-      u = User.get number
-      message = "Hey, how much progress did you make towards #{u.objective} since we last talked?"
-      Message.send u.telephone, message
-    end
-  end
-
-  def later seconds, number
-    after(seconds) { perform(number) }
-  end
-end
-
-class MessageProgressWorker
-  include SuckerPunch::Job
-
-  def perform number
-    ActiveRecord::Base.connection_pool.with_connection do
-      u = User.get number
-      message = "So far you're #{find_percentage_of_work_complete} of the way towards your goal"
-      Message.send u.telephone, message
-    end
-  end
-
-  def later seconds, number
-    after(seconds) { perform(number) }
-  end
-
-  private
-
-  def find_percentage_of_work_complete
-   "#{(user.result / objective_as_a_float).round(2)}%"
-  end
-
-  def objective_as_a_float
-    user.objective.scan(/\d+/).first.to_f
   end
 end
