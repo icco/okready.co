@@ -63,9 +63,22 @@ def act_on_text number, content
     return welcome_flow user, content
   end
 
+  if user.setup?
+    return update_okr user, content
+  end
+
   return "All set up."
 end
 
+##
+# Update a users progress and send a progress update text
+def update_okr user, content
+  unless user.result.nil?
+    user.update(result: user.result + content.to_i)
+    MessageProgressWorker.new.async.later(60)
+  end
+end
+#
 ##
 # Walk through signup flow if we need to.
 def welcome_flow user, content
