@@ -78,3 +78,29 @@ class MessageWorker
     after(seconds) { perform(number) }
   end
 end
+
+class MessageProgressWorker
+  include SuckerPunch::Job
+
+  def perform number
+    ActiveRecord::Base.connection_pool.with_connection do
+      u = User.get number
+      message = "So far you're #{find_percentage_of_work_complete} of the way towards your goal"
+      Message.send u.telephone, message
+    end
+  end
+
+  def later seconds, number
+    after(seconds) { perform(number) }
+  end
+
+  private
+
+  def find_percentage_of_work_complete
+   "#{(user.result / objective_as_a_float).round(2)}%"
+  end
+
+  def objective_as_a_float
+    user.objective.scan(/\d+/).first.to_f
+  end
+end
