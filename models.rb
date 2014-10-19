@@ -42,6 +42,7 @@ class Message < ActiveRecord::Base
   # A log of messages we have sent. Calling this creates an object, makes the
   # Twilio API call and then writes to the Database as a log on success.
   def self.send to, message
+    # TODO(icco): Implement.
   end
 
   ##
