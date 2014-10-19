@@ -48,7 +48,8 @@ class Message < ActiveRecord::Base
   ##
   # Written to when we get a message from Twilio.
   def self.recieve from, message
-    m = Message.create(from: from, text: message)
+    p Message
+    m = create(from: from, text: message)
     p m
     m.save
 
