@@ -10,14 +10,14 @@ gem 'pg'
 gem 'phony'
 gem 'rake'
 gem 'sass'
-gem 'sinatra'
-gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
+gem 'sinatra', '>= 2.0.0'
+gem 'sinatra-activerecord', '>= 2.0.12', :require => 'sinatra/activerecord'
 gem 'sucker_punch'
-gem 'thin'
+gem 'thin', '>= 1.7.0'
 gem 'twilio-ruby'
 
 # For dev
 group :development do
-  gem 'shotgun'
+  gem 'shotgun', '>= 0.9'
   gem 'travis'
 end
