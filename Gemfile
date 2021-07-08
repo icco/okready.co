@@ -19,5 +19,5 @@ gem 'twilio-ruby'
 # For dev
 group :development do
   gem 'shotgun'
-  gem 'travis'
+  gem 'travis', '>= 1.7.2'
 end
